@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion(AndroidSdk.compile)
+
+    defaultConfig {
+        minSdkVersion(AndroidSdk.min)
+        targetSdkVersion(AndroidSdk.target)
+
+        applicationId = AndroidClient.appId
+        versionCode = AndroidClient.versionCode
+        versionName = AndroidClient.versionName
+        testInstrumentationRunner = AndroidClient.testRunner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    // Application dependencies
+    implementation(Libraries.kotlinStdLib)
+    implementation(Libraries.ktxCore)
+    implementation(Libraries.appCompat)
+    implementation(Libraries.material)
+    implementation(Libraries.constraintLayout)
+
+    // Unit/Android tests dependencies
+    testImplementation(TestLibraries.junit4)
+    testImplementation(TestLibraries.mockk)
+    testImplementation(TestLibraries.kluent)
+    testImplementation(TestLibraries.robolectric)
+
+    // Acceptance tests dependencies
+    androidTestImplementation(TestLibraries.testRunner)
+    androidTestImplementation(TestLibraries.espressoCore)
+    androidTestImplementation(TestLibraries.testExtJunit)
+    androidTestImplementation(TestLibraries.testRules)
+    androidTestImplementation(TestLibraries.espressoIntents)
+}
